@@ -3,7 +3,7 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 
-from app.routes import health
+from app.routes import health,posts
 from app.utils.exception_handlers import register_exception_handlers
 from app.utils.logging_setup import configure_logging
 from app.utils.supabase_client import close_supabase_client, init_supabase_client
@@ -27,6 +27,7 @@ def create_app() -> FastAPI:
     app = FastAPI(title="Rescue API", version="0.1.0", lifespan=lifespan)
     register_exception_handlers(app)
     app.include_router(health.router, prefix="/api")
+    app.include_router(posts.router, prefix="/api")
     return app
 
 
